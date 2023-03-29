@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Yunni Qu" />
+
+
+<title>JSC370 Final Project</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">JSC370 Final Project</h1>
+<h4 class="author">Yunni Qu</h4>
+
+</div>
+
+
+<p>This is my JSC370 Final Project website.</p>
+<div id="showing-plots" class="section level2 tabset">
+<h2 class="tabset">Showing plots</h2>
+<div id="figure-1" class="section level3">
+<h3>Figure 1</h3>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e3b5e066b14257d0a3ea" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e3b5e066b14257d0a3ea">{"x":{"visdat":{"5387f300263":["function () ","plotlyVisDat"]},"cur_data":"5387f300263","attrs":{"5387f300263":{"x":{},"mode":"markers","hoverinfo":"text","text":{},"color":{},"size":{},"colors":"Set1","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"pop_density"},"yaxis":{"domain":[0,1],"automargin":true},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[96.50938865],"mode":"markers","hoverinfo":"text","text":"Alabama <br>","type":"scatter","name":"Alabama","marker":{"color":"rgba(228,26,28,1)","size":[19.9517431145776],"sizemode":"area","line":{"color":"rgba(228,26,28,1)"}},"textfont":{"color":"rgba(228,26,28,1)","size":19.9517431145776},"error_y":{"color":"rgba(228,26,28,1)","width":19.9517431145776},"error_x":{"color":"rgba(228,26,28,1)","width":19.9517431145776},"line":{"color":"rgba(228,26,28,1)","width":19.9517431145776},"xaxis":"x","yaxis":"y","frame":null},{"x":[1.2915230609],"mode":"markers","hoverinfo":"text","text":"Alaska <br>","type":"scatter","name":"Alaska","marker":{"color":"rgba(214,59,54,1)","size":[10.3687364075319],"sizemode":"area","line":{"color":"rgba(214,59,54,1)"}},"textfont":{"color":"rgba(214,59,54,1)","size":10.3687364075319},"error_y":{"color":"rgba(214,59,54,1)","width":10.3687364075319},"error_x":{"color":"rgba(214,59,54,1)","width":10.3687364075319},"line":{"color":"rgba(214,59,54,1)","width":10.3687364075319},"xaxis":"x","yaxis":"y","frame":null},{"x":[63.135855048],"mode":"markers","hoverinfo":"text","text":"Arizona <br>","type":"scatter","name":"Arizona","marker":{"color":"rgba(198,78,78,1)","size":[25.2247908043929],"sizemode":"area","line":{"color":"rgba(198,78,78,1)"}},"textfont":{"color":"rgba(198,78,78,1)","size":25.2247908043929},"error_y":{"color":"rgba(198,78,78,1)","width":25.2247908043929},"error_x":{"color":"rgba(198,78,78,1)","width":25.2247908043929},"line":{"color":"rgba(198,78,78,1)","width":25.2247908043929},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.919684465],"mode":"markers","hoverinfo":"text","text":"Arkansas <br>","type":"scatter","name":"Arkansas","marker":{"color":"rgba(179,92,102,1)","size":[15.6247258160663],"sizemode":"area","line":{"color":"rgba(179,92,102,1)"}},"textfont":{"color":"rgba(179,92,102,1)","size":15.6247258160663},"error_y":{"color":"rgba(179,92,102,1)","width":15.6247258160663},"error_x":{"color":"rgba(179,92,102,1)","width":15.6247258160663},"line":{"color":"rgba(179,92,102,1)","width":15.6247258160663},"xaxis":"x","yaxis":"y","frame":null},{"x":[253.9065023],"mode":"markers","hoverinfo":"text","text":"California <br>","type":"scatter","name":"California","marker":{"color":"rgba(157,104,126,1)","size":[100],"sizemode":"area","line":{"color":"rgba(157,104,126,1)"}},"textfont":{"color":"rgba(157,104,126,1)","size":100},"error_y":{"color":"rgba(157,104,126,1)","width":100},"error_x":{"color":"rgba(157,104,126,1)","width":100},"line":{"color":"rgba(157,104,126,1)","width":100},"xaxis":"x","yaxis":"y","frame":null},{"x":[54.955977559],"mode":"markers","hoverinfo":"text","text":"Colorado <br>","type":"scatter","name":"Colorado","marker":{"color":"rgba(128,114,150,1)","size":[21.8166394847235],"sizemode":"area","line":{"color":"rgba(128,114,150,1)"}},"textfont":{"color":"rgba(128,114,150,1)","size":21.8166394847235},"error_y":{"color":"rgba(128,114,150,1)","width":21.8166394847235},"error_x":{"color":"rgba(128,114,150,1)","width":21.8166394847235},"line":{"color":"rgba(128,114,150,1)","width":21.8166394847235},"xaxis":"x","yaxis":"y","frame":null},{"x":[737.74459965],"mode":"markers","hoverinfo":"text","text":"Connecticut <br>","type":"scatter","name":"Connecticut","marker":{"color":"rgba(84,123,175,1)","size":[16.9150411803103],"sizemode":"area","line":{"color":"rgba(84,123,175,1)"}},"textfont":{"color":"rgba(84,123,175,1)","size":16.9150411803103},"error_y":{"color":"rgba(84,123,175,1)","width":16.9150411803103},"error_x":{"color":"rgba(84,123,175,1)","width":16.9150411803103},"line":{"color":"rgba(84,123,175,1)","width":16.9150411803103},"xaxis":"x","yaxis":"y","frame":null},{"x":[496.4324605],"mode":"markers","hoverinfo":"text","text":"Delaware <br>","type":"scatter","name":"Delaware","marker":{"color":"rgba(65,131,174,1)","size":[10.8991709139629],"sizemode":"area","line":{"color":"rgba(65,131,174,1)"}},"textfont":{"color":"rgba(65,131,174,1)","size":10.8991709139629},"error_y":{"color":"rgba(65,131,174,1)","width":10.8991709139629},"error_x":{"color":"rgba(65,131,174,1)","width":10.8991709139629},"line":{"color":"rgba(65,131,174,1)","width":10.8991709139629},"xaxis":"x","yaxis":"y","frame":null},{"x":[11490.11954],"mode":"markers","hoverinfo":"text","text":"District of Columbia <br>","type":"scatter","name":"District of Columbia","marker":{"color":"rgba(75,138,158,1)","size":[10.2879635523545],"sizemode":"area","line":{"color":"rgba(75,138,158,1)"}},"textfont":{"color":"rgba(75,138,158,1)","size":10.2879635523545},"error_y":{"color":"rgba(75,138,158,1)","width":10.2879635523545},"error_x":{"color":"rgba(75,138,158,1)","width":10.2879635523545},"line":{"color":"rgba(75,138,158,1)","width":10.2879635523545},"xaxis":"x","yaxis":"y","frame":null},{"x":[397.01575445],"mode":"markers","hoverinfo":"text","text":"Florida <br>","type":"scatter","name":"Florida","marker":{"color":"rgba(81,146,142,1)","size":[57.844433769835],"sizemode":"area","line":{"color":"rgba(81,146,142,1)"}},"textfont":{"color":"rgba(81,146,142,1)","size":57.844433769835},"error_y":{"color":"rgba(81,146,142,1)","width":57.844433769835},"error_x":{"color":"rgba(81,146,142,1)","width":57.844433769835},"line":{"color":"rgba(81,146,142,1)","width":57.844433769835},"xaxis":"x","yaxis":"y","frame":null},{"x":[182.26478911],"mode":"markers","hoverinfo":"text","text":"Georgia <br>","type":"scatter","name":"Georgia","marker":{"color":"rgba(83,154,125,1)","size":[32.9546512216174],"sizemode":"area","line":{"color":"rgba(83,154,125,1)"}},"textfont":{"color":"rgba(83,154,125,1)","size":32.9546512216174},"error_y":{"color":"rgba(83,154,125,1)","width":32.9546512216174},"error_x":{"color":"rgba(83,154,125,1)","width":32.9546512216174},"line":{"color":"rgba(83,154,125,1)","width":32.9546512216174},"xaxis":"x","yaxis":"y","frame":null},{"x":[221.17691552],"mode":"markers","hoverinfo":"text","text":"Hawaii <br>","type":"scatter","name":"Hawaii","marker":{"color":"rgba(83,161,108,1)","size":[11.9458493208756],"sizemode":"area","line":{"color":"rgba(83,161,108,1)"}},"textfont":{"color":"rgba(83,161,108,1)","size":11.9458493208756},"error_y":{"color":"rgba(83,161,108,1)","width":11.9458493208756},"error_x":{"color":"rgba(83,161,108,1)","width":11.9458493208756},"line":{"color":"rgba(83,161,108,1)","width":11.9458493208756},"xaxis":"x","yaxis":"y","frame":null},{"x":[21.225798536],"mode":"markers","hoverinfo":"text","text":"Idaho <br>","type":"scatter","name":"Idaho","marker":{"color":"rgba(81,169,89,1)","size":[12.7163742876092],"sizemode":"area","line":{"color":"rgba(81,169,89,1)"}},"textfont":{"color":"rgba(81,169,89,1)","size":12.7163742876092},"error_y":{"color":"rgba(81,169,89,1)","width":12.7163742876092},"error_x":{"color":"rgba(81,169,89,1)","width":12.7163742876092},"line":{"color":"rgba(81,169,89,1)","width":12.7163742876092},"xaxis":"x","yaxis":"y","frame":null},{"x":[229.51115613],"mode":"markers","hoverinfo":"text","text":"Illinois <br>","type":"scatter","name":"Illinois","marker":{"color":"rgba(84,172,78,1)","size":[38.084153520632],"sizemode":"area","line":{"color":"rgba(84,172,78,1)"}},"textfont":{"color":"rgba(84,172,78,1)","size":38.084153520632},"error_y":{"color":"rgba(84,172,78,1)","width":38.084153520632},"error_x":{"color":"rgba(84,172,78,1)","width":38.084153520632},"line":{"color":"rgba(84,172,78,1)","width":38.084153520632},"xaxis":"x","yaxis":"y","frame":null},{"x":[186.78751987],"mode":"markers","hoverinfo":"text","text":"Indiana <br>","type":"scatter","name":"Indiana","marker":{"color":"rgba(104,159,95,1)","size":[24.1170461517685],"sizemode":"area","line":{"color":"rgba(104,159,95,1)"}},"textfont":{"color":"rgba(104,159,95,1)","size":24.1170461517685},"error_y":{"color":"rgba(104,159,95,1)","width":24.1170461517685},"error_x":{"color":"rgba(104,159,95,1)","width":24.1170461517685},"line":{"color":"rgba(104,159,95,1)","width":24.1170461517685},"xaxis":"x","yaxis":"y","frame":null},{"x":[56.507023549],"mode":"markers","hoverinfo":"text","text":"Iowa <br>","type":"scatter","name":"Iowa","marker":{"color":"rgba(119,145,109,1)","size":[15.9533309313752],"sizemode":"area","line":{"color":"rgba(119,145,109,1)"}},"textfont":{"color":"rgba(119,145,109,1)","size":15.9533309313752},"error_y":{"color":"rgba(119,145,109,1)","width":15.9533309313752},"error_x":{"color":"rgba(119,145,109,1)","width":15.9533309313752},"line":{"color":"rgba(119,145,109,1)","width":15.9533309313752},"xaxis":"x","yaxis":"y","frame":null},{"x":[35.610732968],"mode":"markers","hoverinfo":"text","text":"Kansas <br>","type":"scatter","name":"Kansas","marker":{"color":"rgba(130,131,123,1)","size":[15.3884773942113],"sizemode":"area","line":{"color":"rgba(130,131,123,1)"}},"textfont":{"color":"rgba(130,131,123,1)","size":15.3884773942113},"error_y":{"color":"rgba(130,131,123,1)","width":15.3884773942113},"error_x":{"color":"rgba(130,131,123,1)","width":15.3884773942113},"line":{"color":"rgba(130,131,123,1)","width":15.3884773942113},"xaxis":"x","yaxis":"y","frame":null},{"x":[113.15179107],"mode":"markers","hoverinfo":"text","text":"Kentucky <br>","type":"scatter","name":"Kentucky","marker":{"color":"rgba(139,116,136,1)","size":[18.9832238684176],"sizemode":"area","line":{"color":"rgba(139,116,136,1)"}},"textfont":{"color":"rgba(139,116,136,1)","size":18.9832238684176},"error_y":{"color":"rgba(139,116,136,1)","width":18.9832238684176},"error_x":{"color":"rgba(139,116,136,1)","width":18.9832238684176},"line":{"color":"rgba(139,116,136,1)","width":18.9832238684176},"xaxis":"x","yaxis":"y","frame":null},{"x":[107.86011234],"mode":"markers","hoverinfo":"text","text":"Louisiana <br>","type":"scatter","name":"Louisiana","marker":{"color":"rgba(146,99,149,1)","size":[19.4255570160455],"sizemode":"area","line":{"color":"rgba(146,99,149,1)"}},"textfont":{"color":"rgba(146,99,149,1)","size":19.4255570160455},"error_y":{"color":"rgba(146,99,149,1)","width":19.4255570160455},"error_x":{"color":"rgba(146,99,149,1)","width":19.4255570160455},"line":{"color":"rgba(146,99,149,1)","width":19.4255570160455},"xaxis":"x","yaxis":"y","frame":null},{"x":[43.391688419],"mode":"markers","hoverinfo":"text","text":"Maine <br>","type":"scatter","name":"Maine","marker":{"color":"rgba(151,81,161,1)","size":[11.7563172234869],"sizemode":"area","line":{"color":"rgba(151,81,161,1)"}},"textfont":{"color":"rgba(151,81,161,1)","size":11.7563172234869},"error_y":{"color":"rgba(151,81,161,1)","width":11.7563172234869},"error_x":{"color":"rgba(151,81,161,1)","width":11.7563172234869},"line":{"color":"rgba(151,81,161,1)","width":11.7563172234869},"xaxis":"x","yaxis":"y","frame":null},{"x":[622.26172745],"mode":"markers","hoverinfo":"text","text":"Maryland <br>","type":"scatter","name":"Maryland","marker":{"color":"rgba(171,84,146,1)","size":[22.6181893737057],"sizemode":"area","line":{"color":"rgba(171,84,146,1)"}},"textfont":{"color":"rgba(171,84,146,1)","size":22.6181893737057},"error_y":{"color":"rgba(171,84,146,1)","width":22.6181893737057},"error_x":{"color":"rgba(171,84,146,1)","width":22.6181893737057},"line":{"color":"rgba(171,84,146,1)","width":22.6181893737057},"xaxis":"x","yaxis":"y","frame":null},{"x":[884.74992172],"mode":"markers","hoverinfo":"text","text":"Massachusetts <br>","type":"scatter","name":"Massachusetts","marker":{"color":"rgba(190,90,127,1)","size":[24.6025445089995],"sizemode":"area","line":{"color":"rgba(190,90,127,1)"}},"textfont":{"color":"rgba(190,90,127,1)","size":24.6025445089995},"error_y":{"color":"rgba(190,90,127,1)","width":24.6025445089995},"error_x":{"color":"rgba(190,90,127,1)","width":24.6025445089995},"line":{"color":"rgba(190,90,127,1)","width":24.6025445089995},"xaxis":"x","yaxis":"y","frame":null},{"x":[176.59707779],"mode":"markers","hoverinfo":"text","text":"Michigan <br>","type":"scatter","name":"Michigan","marker":{"color":"rgba(206,98,108,1)","size":[31.7457944609997],"sizemode":"area","line":{"color":"rgba(206,98,108,1)"}},"textfont":{"color":"rgba(206,98,108,1)","size":31.7457944609997},"error_y":{"color":"rgba(206,98,108,1)","width":31.7457944609997},"error_x":{"color":"rgba(206,98,108,1)","width":31.7457944609997},"line":{"color":"rgba(206,98,108,1)","width":31.7457944609997},"xaxis":"x","yaxis":"y","frame":null},{"x":[70.469674696],"mode":"markers","hoverinfo":"text","text":"Minnesota <br>","type":"scatter","name":"Minnesota","marker":{"color":"rgba(221,106,87,1)","size":[21.6218014952959],"sizemode":"area","line":{"color":"rgba(221,106,87,1)"}},"textfont":{"color":"rgba(221,106,87,1)","size":21.6218014952959},"error_y":{"color":"rgba(221,106,87,1)","width":21.6218014952959},"error_x":{"color":"rgba(221,106,87,1)","width":21.6218014952959},"line":{"color":"rgba(221,106,87,1)","width":21.6218014952959},"xaxis":"x","yaxis":"y","frame":null},{"x":[63.645625459],"mode":"markers","hoverinfo":"text","text":"Mississippi <br>","type":"scatter","name":"Mississippi","marker":{"color":"rgba(235,114,64,1)","size":[15.5617039173707],"sizemode":"area","line":{"color":"rgba(235,114,64,1)"}},"textfont":{"color":"rgba(235,114,64,1)","size":15.5617039173707},"error_y":{"color":"rgba(235,114,64,1)","width":15.5617039173707},"error_x":{"color":"rgba(235,114,64,1)","width":15.5617039173707},"line":{"color":"rgba(235,114,64,1)","width":15.5617039173707},"xaxis":"x","yaxis":"y","frame":null},{"x":[89.117470789],"mode":"markers","hoverinfo":"text","text":"Missouri <br>","type":"scatter","name":"Missouri","marker":{"color":"rgba(249,123,33,1)","size":[22.8115242579473],"sizemode":"area","line":{"color":"rgba(249,123,33,1)"}},"textfont":{"color":"rgba(249,123,33,1)","size":22.8115242579473},"error_y":{"color":"rgba(249,123,33,1)","width":22.8115242579473},"error_x":{"color":"rgba(249,123,33,1)","width":22.8115242579473},"line":{"color":"rgba(249,123,33,1)","width":22.8115242579473},"xaxis":"x","yaxis":"y","frame":null},{"x":[7.298751095],"mode":"markers","hoverinfo":"text","text":"Montana <br>","type":"scatter","name":"Montana","marker":{"color":"rgba(255,138,3,1)","size":[11.1188274558389],"sizemode":"area","line":{"color":"rgba(255,138,3,1)"}},"textfont":{"color":"rgba(255,138,3,1)","size":11.1188274558389},"error_y":{"color":"rgba(255,138,3,1)","width":11.1188274558389},"error_x":{"color":"rgba(255,138,3,1)","width":11.1188274558389},"line":{"color":"rgba(255,138,3,1)","width":11.1188274558389},"xaxis":"x","yaxis":"y","frame":null},{"x":[25.114922059],"mode":"markers","hoverinfo":"text","text":"Nebraska <br>","type":"scatter","name":"Nebraska","marker":{"color":"rgba(255,159,12,1)","size":[13.1205733565101],"sizemode":"area","line":{"color":"rgba(255,159,12,1)"}},"textfont":{"color":"rgba(255,159,12,1)","size":13.1205733565101},"error_y":{"color":"rgba(255,159,12,1)","width":13.1205733565101},"error_x":{"color":"rgba(255,159,12,1)","width":13.1205733565101},"line":{"color":"rgba(255,159,12,1)","width":13.1205733565101},"xaxis":"x","yaxis":"y","frame":null},{"x":[27.6406025],"mode":"markers","hoverinfo":"text","text":"Nevada <br>","type":"scatter","name":"Nevada","marker":{"color":"rgba(255,180,21,1)","size":[15.672213318923],"sizemode":"area","line":{"color":"rgba(255,180,21,1)"}},"textfont":{"color":"rgba(255,180,21,1)","size":15.672213318923},"error_y":{"color":"rgba(255,180,21,1)","width":15.672213318923},"error_x":{"color":"rgba(255,180,21,1)","width":15.672213318923},"line":{"color":"rgba(255,180,21,1)","width":15.672213318923},"xaxis":"x","yaxis":"y","frame":null},{"x":[151.50059716],"mode":"markers","hoverinfo":"text","text":"New Hampshire <br>","type":"scatter","name":"New Hampshire","marker":{"color":"rgba(255,199,29,1)","size":[11.7980024170773],"sizemode":"area","line":{"color":"rgba(255,199,29,1)"}},"textfont":{"color":"rgba(255,199,29,1)","size":11.7980024170773},"error_y":{"color":"rgba(255,199,29,1)","width":11.7980024170773},"error_x":{"color":"rgba(255,199,29,1)","width":11.7980024170773},"line":{"color":"rgba(255,199,29,1)","width":11.7980024170773},"xaxis":"x","yaxis":"y","frame":null},{"x":[1211.3172349],"mode":"markers","hoverinfo":"text","text":"New Jersey <br>","type":"scatter","name":"New Jersey","marker":{"color":"rgba(255,219,37,1)","size":[29.2350892940429],"sizemode":"area","line":{"color":"rgba(255,219,37,1)"}},"textfont":{"color":"rgba(255,219,37,1)","size":29.2350892940429},"error_y":{"color":"rgba(255,219,37,1)","width":29.2350892940429},"error_x":{"color":"rgba(255,219,37,1)","width":29.2350892940429},"line":{"color":"rgba(255,219,37,1)","width":29.2350892940429},"xaxis":"x","yaxis":"y","frame":null},{"x":[17.273065483],"mode":"markers","hoverinfo":"text","text":"New Mexico <br>","type":"scatter","name":"New Mexico","marker":{"color":"rgba(255,238,44,1)","size":[13.5042230611175],"sizemode":"area","line":{"color":"rgba(255,238,44,1)"}},"textfont":{"color":"rgba(255,238,44,1)","size":13.5042230611175},"error_y":{"color":"rgba(255,238,44,1)","width":13.5042230611175},"error_x":{"color":"rgba(255,238,44,1)","width":13.5042230611175},"line":{"color":"rgba(255,238,44,1)","width":13.5042230611175},"xaxis":"x","yaxis":"y","frame":null},{"x":[414.70249405],"mode":"markers","hoverinfo":"text","text":"New York <br>","type":"scatter","name":"New York","marker":{"color":"rgba(253,252,51,1)","size":[53.7873981754627],"sizemode":"area","line":{"color":"rgba(253,252,51,1)"}},"textfont":{"color":"rgba(253,252,51,1)","size":53.7873981754627},"error_y":{"color":"rgba(253,252,51,1)","width":53.7873981754627},"error_x":{"color":"rgba(253,252,51,1)","width":53.7873981754627},"line":{"color":"rgba(253,252,51,1)","width":53.7873981754627},"xaxis":"x","yaxis":"y","frame":null},{"x":[213.56949153],"mode":"markers","hoverinfo":"text","text":"North Carolina <br>","type":"scatter","name":"North Carolina","marker":{"color":"rgba(240,224,51,1)","size":[32.640973256888],"sizemode":"area","line":{"color":"rgba(240,224,51,1)"}},"textfont":{"color":"rgba(240,224,51,1)","size":32.640973256888},"error_y":{"color":"rgba(240,224,51,1)","width":32.640973256888},"error_x":{"color":"rgba(240,224,51,1)","width":32.640973256888},"line":{"color":"rgba(240,224,51,1)","width":32.640973256888},"xaxis":"x","yaxis":"y","frame":null},{"x":[11.015709613],"mode":"markers","hoverinfo":"text","text":"North Dakota <br>","type":"scatter","name":"North Dakota","marker":{"color":"rgba(227,197,50,1)","size":[10.4210079871095],"sizemode":"area","line":{"color":"rgba(227,197,50,1)"}},"textfont":{"color":"rgba(227,197,50,1)","size":10.4210079871095},"error_y":{"color":"rgba(227,197,50,1)","width":10.4210079871095},"error_x":{"color":"rgba(227,197,50,1)","width":10.4210079871095},"line":{"color":"rgba(227,197,50,1)","width":10.4210079871095},"xaxis":"x","yaxis":"y","frame":null},{"x":[286.07988455],"mode":"markers","hoverinfo":"text","text":"Ohio <br>","type":"scatter","name":"Ohio","marker":{"color":"rgba(213,171,48,1)","size":[35.656008310871],"sizemode":"area","line":{"color":"rgba(213,171,48,1)"}},"textfont":{"color":"rgba(213,171,48,1)","size":35.656008310871},"error_y":{"color":"rgba(213,171,48,1)","width":35.656008310871},"error_x":{"color":"rgba(213,171,48,1)","width":35.656008310871},"line":{"color":"rgba(213,171,48,1)","width":35.656008310871},"xaxis":"x","yaxis":"y","frame":null},{"x":[57.482602245],"mode":"markers","hoverinfo":"text","text":"Oklahoma <br>","type":"scatter","name":"Oklahoma","marker":{"color":"rgba(199,145,46,1)","size":[17.7702964865359],"sizemode":"area","line":{"color":"rgba(199,145,46,1)"}},"textfont":{"color":"rgba(199,145,46,1)","size":17.7702964865359},"error_y":{"color":"rgba(199,145,46,1)","width":17.7702964865359},"error_x":{"color":"rgba(199,145,46,1)","width":17.7702964865359},"line":{"color":"rgba(199,145,46,1)","width":17.7702964865359},"xaxis":"x","yaxis":"y","frame":null},{"x":[43.658853835],"mode":"markers","hoverinfo":"text","text":"Oregon <br>","type":"scatter","name":"Oregon","marker":{"color":"rgba(185,119,44,1)","size":[18.3420629222048],"sizemode":"area","line":{"color":"rgba(185,119,44,1)"}},"textfont":{"color":"rgba(185,119,44,1)","size":18.3420629222048},"error_y":{"color":"rgba(185,119,44,1)","width":18.3420629222048},"error_x":{"color":"rgba(185,119,44,1)","width":18.3420629222048},"line":{"color":"rgba(185,119,44,1)","width":18.3420629222048},"xaxis":"x","yaxis":"y","frame":null},{"x":[286.23455445],"mode":"markers","hoverinfo":"text","text":"Pennsylvania <br>","type":"scatter","name":"Pennsylvania","marker":{"color":"rgba(170,93,41,1)","size":[38.2364958864842],"sizemode":"area","line":{"color":"rgba(170,93,41,1)"}},"textfont":{"color":"rgba(170,93,41,1)","size":38.2364958864842},"error_y":{"color":"rgba(170,93,41,1)","width":38.2364958864842},"error_x":{"color":"rgba(170,93,41,1)","width":38.2364958864842},"line":{"color":"rgba(170,93,41,1)","width":38.2364958864842},"xaxis":"x","yaxis":"y","frame":null},{"x":[1022.6505771],"mode":"markers","hoverinfo":"text","text":"Rhode Island <br>","type":"scatter","name":"Rhode Island","marker":{"color":"rgba(190,97,81,1)","size":[11.1073059583305],"sizemode":"area","line":{"color":"rgba(190,97,81,1)"}},"textfont":{"color":"rgba(190,97,81,1)","size":11.1073059583305},"error_y":{"color":"rgba(190,97,81,1)","width":11.1073059583305},"error_x":{"color":"rgba(190,97,81,1)","width":11.1073059583305},"line":{"color":"rgba(190,97,81,1)","width":11.1073059583305},"xaxis":"x","yaxis":"y","frame":null},{"x":[169.11117582],"mode":"markers","hoverinfo":"text","text":"South Carolina <br>","type":"scatter","name":"South Carolina","marker":{"color":"rgba(203,104,104,1)","size":[20.4048819953397],"sizemode":"area","line":{"color":"rgba(203,104,104,1)"}},"textfont":{"color":"rgba(203,104,104,1)","size":20.4048819953397},"error_y":{"color":"rgba(203,104,104,1)","width":20.4048819953397},"error_x":{"color":"rgba(203,104,104,1)","width":20.4048819953397},"line":{"color":"rgba(203,104,104,1)","width":20.4048819953397},"xaxis":"x","yaxis":"y","frame":null},{"x":[11.637449389],"mode":"markers","hoverinfo":"text","text":"South Dakota <br>","type":"scatter","name":"South Dakota","marker":{"color":"rgba(215,111,128,1)","size":[10.7030607110829],"sizemode":"area","line":{"color":"rgba(215,111,128,1)"}},"textfont":{"color":"rgba(215,111,128,1)","size":10.7030607110829},"error_y":{"color":"rgba(215,111,128,1)","width":10.7030607110829},"error_x":{"color":"rgba(215,111,128,1)","width":10.7030607110829},"line":{"color":"rgba(215,111,128,1)","width":10.7030607110829},"xaxis":"x","yaxis":"y","frame":null},{"x":[164.17412699],"mode":"markers","hoverinfo":"text","text":"Tennessee <br>","type":"scatter","name":"Tennessee","marker":{"color":"rgba(228,117,151,1)","size":[24.297446481092],"sizemode":"area","line":{"color":"rgba(228,117,151,1)"}},"textfont":{"color":"rgba(228,117,151,1)","size":24.297446481092},"error_y":{"color":"rgba(228,117,151,1)","width":24.297446481092},"error_x":{"color":"rgba(228,117,151,1)","width":24.297446481092},"line":{"color":"rgba(228,117,151,1)","width":24.297446481092},"xaxis":"x","yaxis":"y","frame":null},{"x":[109.86046804],"mode":"markers","hoverinfo":"text","text":"Texas <br>","type":"scatter","name":"Texas","marker":{"color":"rgba(240,125,176,1)","size":[74.9362405304886],"sizemode":"area","line":{"color":"rgba(240,125,176,1)"}},"textfont":{"color":"rgba(240,125,176,1)","size":74.9362405304886},"error_y":{"color":"rgba(240,125,176,1)","width":74.9362405304886},"error_x":{"color":"rgba(240,125,176,1)","width":74.9362405304886},"line":{"color":"rgba(240,125,176,1)","width":74.9362405304886},"xaxis":"x","yaxis":"y","frame":null},{"x":[38.458214685],"mode":"markers","hoverinfo":"text","text":"Utah <br>","type":"scatter","name":"Utah","marker":{"color":"rgba(242,131,189,1)","size":[15.9647831613635],"sizemode":"area","line":{"color":"rgba(242,131,189,1)"}},"textfont":{"color":"rgba(242,131,189,1)","size":15.9647831613635},"error_y":{"color":"rgba(242,131,189,1)","width":15.9647831613635},"error_x":{"color":"rgba(242,131,189,1)","width":15.9647831613635},"line":{"color":"rgba(242,131,189,1)","width":15.9647831613635},"xaxis":"x","yaxis":"y","frame":null},{"x":[67.943995144],"mode":"markers","hoverinfo":"text","text":"Vermont <br>","type":"scatter","name":"Vermont","marker":{"color":"rgba(228,136,183,1)","size":[10.1121256436877],"sizemode":"area","line":{"color":"rgba(228,136,183,1)"}},"textfont":{"color":"rgba(228,136,183,1)","size":10.1121256436877},"error_y":{"color":"rgba(228,136,183,1)","width":10.1121256436877},"error_x":{"color":"rgba(228,136,183,1)","width":10.1121256436877},"line":{"color":"rgba(228,136,183,1)","width":10.1121256436877},"xaxis":"x","yaxis":"y","frame":null},{"x":[215.73630393],"mode":"markers","hoverinfo":"text","text":"Virginia <br>","type":"scatter","name":"Virginia","marker":{"color":"rgba(213,141,177,1)","size":[28.3326835868918],"sizemode":"area","line":{"color":"rgba(213,141,177,1)"}},"textfont":{"color":"rgba(213,141,177,1)","size":28.3326835868918},"error_y":{"color":"rgba(213,141,177,1)","width":28.3326835868918},"error_x":{"color":"rgba(213,141,177,1)","width":28.3326835868918},"line":{"color":"rgba(213,141,177,1)","width":28.3326835868918},"xaxis":"x","yaxis":"y","frame":null},{"x":[113.39722716],"mode":"markers","hoverinfo":"text","text":"Washington <br>","type":"scatter","name":"Washington","marker":{"color":"rgba(199,145,171,1)","size":[26.0651097243697],"sizemode":"area","line":{"color":"rgba(199,145,171,1)"}},"textfont":{"color":"rgba(199,145,171,1)","size":26.0651097243697},"error_y":{"color":"rgba(199,145,171,1)","width":26.0651097243697},"error_x":{"color":"rgba(199,145,171,1)","width":26.0651097243697},"line":{"color":"rgba(199,145,171,1)","width":26.0651097243697},"xaxis":"x","yaxis":"y","frame":null},{"x":[75.11398785],"mode":"markers","hoverinfo":"text","text":"West Virginia <br>","type":"scatter","name":"West Virginia","marker":{"color":"rgba(184,148,165,1)","size":[12.8355698361808],"sizemode":"area","line":{"color":"rgba(184,148,165,1)"}},"textfont":{"color":"rgba(184,148,165,1)","size":12.8355698361808},"error_y":{"color":"rgba(184,148,165,1)","width":12.8355698361808},"error_x":{"color":"rgba(184,148,165,1)","width":12.8355698361808},"line":{"color":"rgba(184,148,165,1)","width":12.8355698361808},"xaxis":"x","yaxis":"y","frame":null},{"x":[107.32815663],"mode":"markers","hoverinfo":"text","text":"Wisconsin <br>","type":"scatter","name":"Wisconsin","marker":{"color":"rgba(169,151,159,1)","size":[22.0891009660818],"sizemode":"area","line":{"color":"rgba(169,151,159,1)"}},"textfont":{"color":"rgba(169,151,159,1)","size":22.0891009660818},"error_y":{"color":"rgba(169,151,159,1)","width":22.0891009660818},"error_x":{"color":"rgba(169,151,159,1)","width":22.0891009660818},"line":{"color":"rgba(169,151,159,1)","width":22.0891009660818},"xaxis":"x","yaxis":"y","frame":null},{"x":[5.9506106574],"mode":"markers","hoverinfo":"text","text":"Wyoming <br>","type":"scatter","name":"Wyoming","marker":{"color":"rgba(153,153,153,1)","size":[10],"sizemode":"area","line":{"color":"rgba(153,153,153,1)"}},"textfont":{"color":"rgba(153,153,153,1)","size":10},"error_y":{"color":"rgba(153,153,153,1)","width":10},"error_x":{"color":"rgba(153,153,153,1)","width":10},"line":{"color":"rgba(153,153,153,1)","width":10},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="figure-2" class="section level3">
+<h3>Figure 2</h3>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

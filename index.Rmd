@@ -47,18 +47,24 @@ p2_scatter <- cv_states_today_scatter %>%
                   yaxis = list(title = "Deaths per 100k"), xaxis = list(title = "Population Density"),
          hovermode = "compare")
 
+scatter_p1 <- plot_ly(cv_states_today, x = ~pop_density, color = ~state, colors = "Set1",
+             size = ~population, type = "scatter", mode = "markers",
+             hoverinfo = "text",
+             text = ~paste(state, "<br>"))
+
+
+
 ```
 
 ## Showing plots {.tabset}
 
 ### Figure 1
 ```{r}
-p1_scatter
+scatter_p1
 ```
 
 
 ### Figure 2
 ```{r}
-p2_scatter
 ```
 
